@@ -31,4 +31,5 @@ dependencies {
     compile files('libs/glide-3.7.0.jar')
     testCompile 'junit:junit:4.12'
     compile project(':xutils')
+    compile project(':PhotoView_library')
 }

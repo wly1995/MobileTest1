@@ -1,1 +1,1 @@
-include ':app', ':sample', ':xutils', ':xUtils3-master'
+include ':app', ':sample', ':xutils', ':xUtils3-master', ':PhotoView_library'
