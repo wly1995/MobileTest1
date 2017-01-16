@@ -57,6 +57,7 @@ public class NetAudioFragment extends BaseFragment {
     public void initData() {
 
 //        textView.setText("网络音频");
+        //先从缓存中读取，如果联网成功后会在网络上读取，覆盖本地的数据
         String saveJson = CacheUtils.getString(mContext, Constant.NET_AUDIO_URL);
         if(!TextUtils.isEmpty(saveJson)){
             processData(saveJson);
@@ -124,7 +125,7 @@ public class NetAudioFragment extends BaseFragment {
             //设置适配器
             myAdapter = new NetAudioFragmentAdapter(mContext,datas);
             listview.setAdapter(myAdapter);
-        }else{
+        } else{
             //没有视频
             tvNomedia.setVisibility(View.VISIBLE);
         }
@@ -135,7 +136,7 @@ public class NetAudioFragment extends BaseFragment {
 
     /**
      * json解析数据
-     * @param json
+     * @param json 用Gson进行解析将json解析 封装到bean类中
      * @return
      */
     private NetAudioBean paraseJons(String json) {
