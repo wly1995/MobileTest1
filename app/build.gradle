@@ -27,6 +27,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
+    compile files('libs/glide-3.7.0.jar')
     testCompile 'junit:junit:4.12'
     compile project(':xutils')
 }
