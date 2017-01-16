@@ -42,10 +42,5 @@
             style="@style/bottom_button_style"
             android:drawableTop="@drawable/rb_net_video_selector"
             android:text="网络视频"/>
-        <RadioButton
-            android:id="@+id/rb_wly_video"
-            style="@style/bottom_button_style"
-            android:drawableTop="@drawable/rb_net_video_selector"
-            android:text="网络浏览"/>
     </RadioGroup>
 </LinearLayout>
