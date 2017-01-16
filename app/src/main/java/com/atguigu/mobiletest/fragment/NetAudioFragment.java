@@ -3,6 +3,7 @@ package com.atguigu.mobiletest.fragment;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.atguigu.mobiletest.base.BaseFragment;
@@ -13,6 +14,7 @@ import com.atguigu.mobiletest.base.BaseFragment;
 
 public class NetAudioFragment extends BaseFragment {
     private TextView textView;
+    private ListView listView;
 
     /**
      * 初始化视图的方法
