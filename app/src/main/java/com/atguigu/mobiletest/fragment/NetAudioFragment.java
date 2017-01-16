@@ -16,6 +16,8 @@ import com.atguigu.mobiletest.adapter.NetAudioFragmentAdapter;
 import com.atguigu.mobiletest.base.BaseFragment;
 import com.atguigu.mobiletest.bean.NetAudioBean;
 import com.atguigu.mobiletest.util.CacheUtils;
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -39,6 +41,8 @@ public class NetAudioFragment extends BaseFragment {
     ProgressBar progressbar;
     @Bind(R.id.tv_nomedia)
     TextView tvNomedia;
+    @Bind(R.id.refresh)
+    MaterialRefreshLayout refreshLayout;
     private List<NetAudioBean.ListBean> datas;
     private NetAudioFragmentAdapter myAdapter;
 
@@ -74,9 +78,31 @@ public class NetAudioFragment extends BaseFragment {
 
             }
         });
+
+        //设置下拉和上拉的监听
+        refreshLayout.setMaterialRefreshListener(new MyMaterialRefreshListener());
         return view;
     }
 
+    private boolean isLoadMore = false;
+    class MyMaterialRefreshListener extends MaterialRefreshListener{
+        @Override
+        public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+//            Toast.makeText(mContext,"下拉刷新",Toast.LENGTH_SHORT).show();
+            //下拉刷新的时候需要重新从网络中获取数据
+            isLoadMore = false;
+            getDataFromNet();
+        }
+
+        @Override
+        public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+            super.onRefreshLoadMore(materialRefreshLayout);
+//            Toast.makeText(mContext,"上拉刷新",Toast.LENGTH_SHORT).show();
+            //上拉同样需要获取数据
+            isLoadMore = true;
+            getDataFromNet();
+        }
+    }
     /**
      * 初始化数据的方法
      */
@@ -111,6 +137,13 @@ public class NetAudioFragment extends BaseFragment {
                 CacheUtils.putString(mContext,Constant.NET_AUDIO_URL,result);
 
                 processData(result);
+                if (!isLoadMore) {
+                    //在请求数据成功后刷新就完成
+                    refreshLayout.finishRefresh();//下拉刷新完成（下拉圈会隐藏）
+                }else {
+
+                    refreshLayout.finishRefreshLoadMore();//上拉刷新完成（上拉圈会消失）
+                }
 
             }
 
@@ -141,23 +174,31 @@ public class NetAudioFragment extends BaseFragment {
      * @param result
      */
     private void processData(String result) {
-        NetAudioBean netAudioBean = paraseJons(result);
-        LogUtil.e(netAudioBean.getList().get(0).getText()+"-----------");
+        if (!isLoadMore) {
+            NetAudioBean netAudioBean = paraseJons(result);
+            LogUtil.e(netAudioBean.getList().get(0).getText()+"-----------");
 
-        datas = netAudioBean.getList();
+            datas = netAudioBean.getList();
 
-        if(datas != null && datas.size() >0){
-            //有视频
-            tvNomedia.setVisibility(View.GONE);
-            //设置适配器
-            myAdapter = new NetAudioFragmentAdapter(mContext,datas);
-            listview.setAdapter(myAdapter);
-        } else{
-            //没有视频
-            tvNomedia.setVisibility(View.VISIBLE);
+            if(datas != null && datas.size() >0){
+                //有视频
+                tvNomedia.setVisibility(View.GONE);
+                //设置适配器
+                myAdapter = new NetAudioFragmentAdapter(mContext,datas);
+                listview.setAdapter(myAdapter);
+            } else{
+                //没有视频
+                tvNomedia.setVisibility(View.VISIBLE);
+            }
+
+            progressbar.setVisibility(View.GONE);
+        }else {
+            //加载更多
+            datas.addAll(paraseJons(result).getList());//上拉刷新就是
+            //适配器要刷新
+            myAdapter.notifyDataSetChanged();//会重新执行getCotent--->getView
         }
 
-        progressbar.setVisibility(View.GONE);
 
     }
 

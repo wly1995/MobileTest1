@@ -11,7 +11,7 @@ import com.atguigu.mobiletest.base.BaseFragment;
  * Created by 万里洋 on 2017/1/6.
  */
 
-public class NetVideoFragment extends BaseFragment {
+public class RecyclerViewFragment extends BaseFragment {
     private TextView textView;
 
     /**

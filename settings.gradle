@@ -1,1 +1,1 @@
-include ':app', ':sample', ':xutils', ':xUtils3-master', ':PhotoView_library'
+include ':app', ':sample', ':xutils', ':xUtils3-master', ':PhotoView_library', 'JieCaoVideoPlayer-develop', ':jcvideoplayer-lib', ':MaterialRefresh_library'

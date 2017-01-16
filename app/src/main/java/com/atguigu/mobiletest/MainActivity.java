@@ -18,7 +18,7 @@ import com.atguigu.mobiletest.base.BaseFragment;
 import com.atguigu.mobiletest.fragment.LocalAudioFragment;
 import com.atguigu.mobiletest.fragment.LocalVideoFragment;
 import com.atguigu.mobiletest.fragment.NetAudioFragment;
-import com.atguigu.mobiletest.fragment.NetVideoFragment;
+import com.atguigu.mobiletest.fragment.RecyclerViewFragment;
 
 import java.util.ArrayList;
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new LocalVideoFragment());//本地视频
         fragments.add(new LocalAudioFragment());//本地音乐
         fragments.add(new NetAudioFragment());//网络音乐
-        fragments.add(new NetVideoFragment());//网络视频
+        fragments.add(new RecyclerViewFragment());//网络视频
     }
     /**
      * 解决安卓6.0以上版本不能读取外部存储权限的问题
