@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -383,6 +384,18 @@ public class NetAudioFragmentAdapter extends BaseAdapter {
                 x.image().bind(ivImageGif, mediaItem.getGif().getImages().get(0), imageOptions);
             }
 
+        }
+    }
+    static class ADHolder {
+        TextView tvContext;
+        ImageView ivImageIcon;
+        Button btnInstall;
+
+        ADHolder(View convertView) {
+            //中间公共部分 -所有的都有
+            tvContext = (TextView) convertView.findViewById(R.id.tv_context);
+            btnInstall = (Button) convertView.findViewById(R.id.btn_install);
+            ivImageIcon = (ImageView) convertView.findViewById(R.id.iv_image_icon);
         }
     }
 }
